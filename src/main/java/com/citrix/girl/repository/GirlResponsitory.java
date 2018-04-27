@@ -1,7 +1,7 @@
-package com.citrix.girl;
+package com.citrix.girl.repository;
 
+import com.citrix.girl.domain.Girl;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.cdi.JpaRepositoryExtension;
 
 import java.util.List;
 

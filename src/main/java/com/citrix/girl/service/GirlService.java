@@ -1,5 +1,7 @@
-package com.citrix.girl;
+package com.citrix.girl.service;
 
+import com.citrix.girl.repository.GirlResponsitory;
+import com.citrix.girl.domain.Girl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

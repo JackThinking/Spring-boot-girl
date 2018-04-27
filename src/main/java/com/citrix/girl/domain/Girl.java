@@ -1,8 +1,9 @@
-package com.citrix.girl;
+package com.citrix.girl.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.Min;
 
 //注解表示类对于数据库中的表
 @Entity
@@ -11,6 +12,7 @@ public class Girl {
     @GeneratedValue
     private Integer id;
     private String cupSize;
+    @Min(value = 18,message = "未成年少女禁止入门")
     private Integer age;
 
     public Girl() {

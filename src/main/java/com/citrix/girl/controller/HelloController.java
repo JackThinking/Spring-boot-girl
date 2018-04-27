@@ -1,5 +1,6 @@
-package com.citrix.girl;
+package com.citrix.girl.controller;
 
+import com.citrix.girl.properties.GirlProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

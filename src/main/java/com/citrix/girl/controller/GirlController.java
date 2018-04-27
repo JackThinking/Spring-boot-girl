@@ -1,10 +1,13 @@
-package com.citrix.girl;
+package com.citrix.girl.controller;
 
+import com.citrix.girl.domain.Girl;
+import com.citrix.girl.repository.GirlResponsitory;
+import com.citrix.girl.service.GirlService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.sql.rowset.serial.SerialStruct;
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -13,24 +16,31 @@ public class GirlController {
     @Autowired
     private GirlResponsitory girlResponsitory;
     @Autowired
-    private  GirlService girlService;
+    private GirlService girlService;
     /*
     * 查询女生列表
     * @return
     * */
     @GetMapping(value = "/girls")
     public List<Girl> girlList(){
+        System.out.println("girlList");
         return girlResponsitory.findAll();
     }
     /*
     * 添加一个女生
     * */
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@RequestParam("cupSize") String cupSize,
-                          @RequestParam("age") Integer age) {
-        Girl girl = new Girl();
-        girl.setCupSize(cupSize);
-        girl.setAge(age);
+    public Girl girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+//    public Girl girlAdd(@RequestParam("cupSize") String cupSize,
+//                          @RequestParam("age") Integer age) {
+
+        //Girl girl = new Girl();
+        if (bindingResult.hasErrors()){
+            System.out.println(bindingResult.getFieldError().getDefaultMessage());
+            return null;
+        }
+        girl.setCupSize(girl.getCupSize());
+        girl.setAge(girl.getAge());
 
         return girlResponsitory.save(girl);
     }
