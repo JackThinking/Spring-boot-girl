@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 //注解表示类对于数据库中的表
 @Entity
@@ -14,6 +15,9 @@ public class Girl {
     private String cupSize;
     @Min(value = 18,message = "未成年少女禁止入门")
     private Integer age;
+
+    @NotNull(message = "金额必填")
+    private Double money;
 
     public Girl() {
     }
@@ -42,12 +46,21 @@ public class Girl {
         this.age = age;
     }
 
+    public Double getMoney() {
+        return money;
+    }
+
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
     @Override
     public String toString() {
         return "Girl{" +
                 "id=" + id +
                 ", cupSize='" + cupSize + '\'' +
                 ", age=" + age +
+                ", money=" + money +
                 '}';
     }
 }

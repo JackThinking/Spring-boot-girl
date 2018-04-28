@@ -2,6 +2,7 @@ package com.citrix.girl.controller;
 
 import com.citrix.girl.aspect.HttpAspect;
 import com.citrix.girl.domain.Girl;
+import com.citrix.girl.domain.Result;
 import com.citrix.girl.repository.GirlResponsitory;
 import com.citrix.girl.service.GirlService;
 import org.slf4j.LoggerFactory;
@@ -33,19 +34,25 @@ public class GirlController {
     * 添加一个女生
     * */
     @PostMapping(value = "/girls")
-    public Girl girlAdd(@Valid Girl girl, BindingResult bindingResult) {
+    public Result<Girl> girlAdd(@Valid Girl girl, BindingResult bindingResult) {
 //    public Girl girlAdd(@RequestParam("cupSize") String cupSize,
 //                          @RequestParam("age") Integer age) {
 
         //Girl girl = new Girl();
         if (bindingResult.hasErrors()){
-            System.out.println(bindingResult.getFieldError().getDefaultMessage());
-            return null;
+            Result result = new Result();
+            result.setCode(1);
+            result.setMsg(bindingResult.getFieldError().getDefaultMessage());
+            return result;
         }
+        Result result = new Result();
+        result.setCode(0);
+        result.setMsg("成功");
+        result.setData(girlResponsitory.save(girl));
         girl.setCupSize(girl.getCupSize());
         girl.setAge(girl.getAge());
-
-        return girlResponsitory.save(girl);
+        girl.setMoney(girl.getMoney());
+        return result;
     }
     /*
     * 查询一个女生
