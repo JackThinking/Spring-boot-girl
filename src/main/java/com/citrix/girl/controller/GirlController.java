@@ -1,8 +1,10 @@
 package com.citrix.girl.controller;
 
+import com.citrix.girl.aspect.HttpAspect;
 import com.citrix.girl.domain.Girl;
 import com.citrix.girl.repository.GirlResponsitory;
 import com.citrix.girl.service.GirlService;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @RestController
 public class GirlController {
+    private final static org.slf4j.Logger logger = LoggerFactory.getLogger(GirlController.class);
 
     @Autowired
     private GirlResponsitory girlResponsitory;
@@ -23,7 +26,7 @@ public class GirlController {
     * */
     @GetMapping(value = "/girls")
     public List<Girl> girlList(){
-        System.out.println("girlList");
+        logger.info("girlList");
         return girlResponsitory.findAll();
     }
     /*
