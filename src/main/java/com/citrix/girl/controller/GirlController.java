@@ -5,6 +5,7 @@ import com.citrix.girl.domain.Girl;
 import com.citrix.girl.domain.Result;
 import com.citrix.girl.repository.GirlResponsitory;
 import com.citrix.girl.service.GirlService;
+import com.citrix.girl.util.ResultUtil;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
@@ -40,19 +41,12 @@ public class GirlController {
 
         //Girl girl = new Girl();
         if (bindingResult.hasErrors()){
-            Result result = new Result();
-            result.setCode(1);
-            result.setMsg(bindingResult.getFieldError().getDefaultMessage());
-            return result;
+            return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
-        Result result = new Result();
-        result.setCode(0);
-        result.setMsg("成功");
-        result.setData(girlResponsitory.save(girl));
         girl.setCupSize(girl.getCupSize());
         girl.setAge(girl.getAge());
         girl.setMoney(girl.getMoney());
-        return result;
+        return ResultUtil.success(girlResponsitory.save(girl));
     }
     /*
     * 查询一个女生
@@ -97,6 +91,10 @@ public class GirlController {
     @PostMapping(value = "/girls/two")
     public void girlTwo(){
         girlService.insertTwo();
+    }
+    @GetMapping(value = "/girls/getage/{id}")
+    public void getAge(@PathVariable("id") Integer id) throws Exception{
+        girlService.getAge(id);
     }
 }
 

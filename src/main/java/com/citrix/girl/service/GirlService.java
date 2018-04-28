@@ -5,6 +5,8 @@ import com.citrix.girl.domain.Girl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.OneToMany;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 
 @Service
@@ -22,5 +24,16 @@ public class GirlService {
         girlB.setCupSize("B");
         girlB.setAge(19);
         girlResponsitory.save(girlB);
+    }
+
+    public void getAge(Integer id) throws Exception{
+        Girl girl = girlResponsitory.findById(id).get();
+        Integer age = girl.getAge();
+        if(age<10){
+            throw new Exception("还在上小学");
+        }
+        else if(age>10 && age<16){
+            throw new Exception("还在上初中");
+        }
     }
 }
