@@ -1,5 +1,7 @@
 package com.citrix.girl.service;
 
+import com.citrix.girl.enums.ResultEnum;
+import com.citrix.girl.exception.GirlException;
 import com.citrix.girl.repository.GirlResponsitory;
 import com.citrix.girl.domain.Girl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,14 +28,15 @@ public class GirlService {
         girlResponsitory.save(girlB);
     }
 
+    
     public void getAge(Integer id) throws Exception{
         Girl girl = girlResponsitory.findById(id).get();
         Integer age = girl.getAge();
         if(age<10){
-            throw new Exception("还在上小学");
+            throw new GirlException(ResultEnum.PRIMARY_SCHOOL);
         }
         else if(age>10 && age<16){
-            throw new Exception("还在上初中");
+            throw new GirlException(ResultEnum.MIDDLE_SCHOOL);
         }
     }
 }

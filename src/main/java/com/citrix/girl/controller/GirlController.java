@@ -41,7 +41,8 @@ public class GirlController {
 
         //Girl girl = new Girl();
         if (bindingResult.hasErrors()){
-            return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
+            return null;
+//            return ResultUtil.error(1,bindingResult.getFieldError().getDefaultMessage());
         }
         girl.setCupSize(girl.getCupSize());
         girl.setAge(girl.getAge());
@@ -85,14 +86,14 @@ public class GirlController {
     public List<Girl> girlListByAge(@PathVariable("age") Integer age){
         return girlResponsitory.findByAge(age);
     }
-    /*
-    *
-    * */
+
     @PostMapping(value = "/girls/two")
     public void girlTwo(){
         girlService.insertTwo();
     }
+
     @GetMapping(value = "/girls/getage/{id}")
+
     public void getAge(@PathVariable("id") Integer id) throws Exception{
         girlService.getAge(id);
     }
