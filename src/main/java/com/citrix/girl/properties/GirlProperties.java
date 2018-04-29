@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 public class GirlProperties {
     private String cupSize;
     private Integer age;
+    private Double money;
 
     public String getCupSize() {
         return cupSize;
